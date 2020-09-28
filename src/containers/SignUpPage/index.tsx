@@ -105,15 +105,18 @@ export default class SignUpPage
 
             <div className="form-group">
               <label>Email address</label>
+              <small className="text-danger">*</small>
               <EmailInput value="" ref={this.emailInput} />
             </div>
 
             <div className="form-group">
               <label>Password</label>
+              <small className="text-danger">*</small>
               <PasswordInput value="" ref={this.passwordInput} />
             </div>
             <div className="form-group">
               <label>Confirm Password</label>
+              <small className="text-danger">*</small>
               <PasswordInput value="" ref={this.password2Input} />
             </div>
             <div className="text-danger text-center" style={{ margin: "10px" }}>
