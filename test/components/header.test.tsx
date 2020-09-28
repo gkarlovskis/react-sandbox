@@ -1,6 +1,6 @@
 import renderer from 'react-test-renderer';
 import { mount, shallow } from 'enzyme';
-import LoginPage from '../../src/containers/LoginPage';
+import SignInPage from '../../src/containers/SignInPage';
 import React from 'react';
 
 describe('Login component test', () => {

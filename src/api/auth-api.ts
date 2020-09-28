@@ -22,7 +22,7 @@ export class AuthApi extends BaseApi {
       "Sends POST request to auth server and get user data"
     );
 
-    // TODO - For testing purposes
+    // TODO: For testing purposes
     switch (response.data?.username) {
       case "demo@demo.lv":
         return {

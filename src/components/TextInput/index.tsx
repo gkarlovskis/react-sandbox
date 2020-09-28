@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { IInputDefaultProps } from '../../interfaces/i-input-default-props';
-import { IInputDefaultState } from '../../interfaces/i-input-default-state';
+import * as React from "react";
+import { IInputDefaultProps } from "../../interfaces/i-input-default-props";
+import { IInputDefaultState } from "../../interfaces/i-input-default-state";
 
-export default class EmailInput extends React.Component<
+export default class TextInput extends React.Component<
   IInputDefaultProps,
   IInputDefaultState
 > {
@@ -12,7 +12,7 @@ export default class EmailInput extends React.Component<
     this.state = {
       value: this.props.value,
       isValid: true,
-      errorMessage: '',
+      errorMessage: "",
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.getState = this.getState.bind(this);
@@ -20,13 +20,13 @@ export default class EmailInput extends React.Component<
 
   public getState(): IInputDefaultState {
     let result = { ...this.state };
-    result['errorMessage'] = '';
-    result['isValid'] = true;
+    result["errorMessage"] = "";
+    result["isValid"] = true;
     this.setState(result);
     const validationResult = this.validateInput(this.state.value);
-    if (validationResult !== '') {
-      result['errorMessage'] = validationResult;
-      result['isValid'] = false;
+    if (validationResult !== "") {
+      result["errorMessage"] = validationResult;
+      result["isValid"] = false;
       this.setState(result);
     }
 
@@ -43,14 +43,11 @@ export default class EmailInput extends React.Component<
   }
 
   private validateInput(val: string | undefined): string {
-    //eslint-disable-next-line
-    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
-
-    if (!val) {
-      return 'Please enter email';
+    if (!val && this.props.required) {
+      return "This is required field";
     }
-    if (!emailRegex.test(val)) return 'Incorrect email';
-    return '';
+
+    return "";
   }
 
   render() {
@@ -60,15 +57,19 @@ export default class EmailInput extends React.Component<
           type="email"
           value={this.state.value}
           className="form-control"
-          placeholder="Enter email"
+          placeholder={
+            this.props.placeholder ? this.props.placeholder : "Enter text"
+          }
+          minLength={this.props.minlength}
+          maxLength={this.props.maxlength}
           autoComplete="off"
-          style={!this.state.isValid ? { border: '1px solid red' } : {}}
+          style={!this.state.isValid ? { border: "1px solid red" } : {}}
           onChange={this.onInputChange}
         />
         <small
           className="text-danger"
           style={
-            !this.state.isValid ? { display: 'block' } : { display: 'none' }
+            !this.state.isValid ? { display: "block" } : { display: "none" }
           }
         >
           {this.state.errorMessage}

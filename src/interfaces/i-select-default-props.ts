@@ -1,7 +1,7 @@
-export interface IInputDefaultProps {
+export interface ISelectDefaultProps {
+  name?: string;
   value?: string;
-  minlength?: number;
-  maxlength?: number;
+  valueList?: string;
   required?: boolean;
   placeholder?: string;
   onChange?: (value: string) => void;

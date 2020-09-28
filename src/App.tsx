@@ -3,7 +3,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
 import { Router, Switch } from "react-router-dom";
 import history from "./helpers/browser-history";
-import LoginPage from "./containers/LoginPage";
+import SignInPage from "./containers/SignInPage";
 import SignUpPage from "./containers/SignUpPage";
 import Header from "./components/Header";
 import Dashboard from "./containers/Dashboard";
@@ -44,7 +44,7 @@ class App extends Component<IAppProps, IAppState> {
             <NonAuthRoute
               isLogged={this.state.isLoggedIn}
               path={"/sign-in"}
-              component={LoginPage}
+              component={SignInPage}
             />
             <NonAuthRoute
               isLogged={this.state.isLoggedIn}

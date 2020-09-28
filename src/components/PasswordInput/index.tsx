@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { InputDefaultProps } from '../../interfaces/i-input-default-props';
-import { InputDefaultState } from '../../interfaces/i-input-default-state';
+import { IInputDefaultProps } from '../../interfaces/i-input-default-props';
+import { IInputDefaultState } from '../../interfaces/i-input-default-state';
 
 export default class PasswordInput extends React.Component<
-  InputDefaultProps,
-  InputDefaultState
+  IInputDefaultProps,
+  IInputDefaultState
 > {
-  constructor(props: InputDefaultProps) {
+  constructor(props: IInputDefaultProps) {
     super(props);
 
     this.state = {
@@ -18,7 +18,7 @@ export default class PasswordInput extends React.Component<
     this.getState = this.getState.bind(this);
   }
 
-  public getState(): InputDefaultState {
+  public getState(): IInputDefaultState {
     let result = { ...this.state };
     result['errorMessage'] = '';
     result['isValid'] = true;

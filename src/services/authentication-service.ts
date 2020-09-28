@@ -37,13 +37,6 @@ export const isLoggedIn = async () => {
   const currentUser: IUser = JSON.parse(
     JSON.stringify(localStorage.getItem("currentUser"))
   );
-  if (currentUser) {
-    console.log(
-      "Current user" +
-      currentUser.username +
-      " status=" +
-      currentUser.authenticated
-    );
-  }
+  // TODO: Need to improve validation of user by using token
   return currentUser ? true : false;
 };

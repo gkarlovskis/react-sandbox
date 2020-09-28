@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import EmailInput from "../../components/EmailInput";
 import PasswordInput from "../../components/PasswordInput";
-import { IFormProps } from "../../interfaces/i-form-props";
-import { InputDefaultState } from "../../interfaces/i-input-default-state";
-import { ILoginFormFormState } from "../../interfaces/i-login-form-state";
+import { IFormDefaultProps } from "../../interfaces/i-form-default-props";
+import { IInputDefaultState } from "../../interfaces/i-input-default-state";
+import { ISignInFormFormState } from "../../interfaces/i-signin-form-state";
 import { login } from "../../services/authentication-service";
+import { ISignInPage } from "../../interfaces/i-signin-page";
 
-export default class LoginPage extends Component<
-  IFormProps,
-  ILoginFormFormState
-> {
+export default class SignInPage
+  extends Component<IFormDefaultProps, ISignInFormFormState>
+  implements ISignInPage {
   private passwordInput: React.RefObject<PasswordInput>;
   private emailInput: React.RefObject<EmailInput>;
 
-  constructor(props: IFormProps) {
+  constructor(props: IFormDefaultProps) {
     super(props);
     this.passwordInput = React.createRef();
     this.emailInput = React.createRef();
@@ -26,11 +26,11 @@ export default class LoginPage extends Component<
     this.errorHandler = this.errorHandler.bind(this);
   }
 
-  private errorHandler(error: Error): void {
+  errorHandler(error: Error): void {
     this.setState(() => ({ errorMessage: error.message }));
   }
 
-  private handlePasswordChange(): void {
+  handlePasswordChange(): void {
     console.log("Handle password change for demo purposes");
   }
 
@@ -38,17 +38,17 @@ export default class LoginPage extends Component<
    * Submits the form to the http api
    * @returns {boolean} - Whether the form submission was successful or not
    */
-  private async handleSubmit(e: any): Promise<boolean> {
+  async handleSubmit(e: any): Promise<boolean> {
     e.preventDefault();
 
     //Validate input fields
     this.setState({ errorMessage: "" });
     const emailFieldState:
-      | InputDefaultState
+      | IInputDefaultState
       | undefined = this.emailInput.current?.getState();
 
     const passwordFieldState:
-      | InputDefaultState
+      | IInputDefaultState
       | undefined = this.passwordInput.current?.getState();
 
     if (!emailFieldState?.isValid || !passwordFieldState?.isValid) {
