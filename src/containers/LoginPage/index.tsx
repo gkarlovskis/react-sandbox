@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import EmailInput from '../../components/EmailInput';
-import PasswordInput from '../../components/PasswordInput';
-import { IFormProps } from '../../interfaces/i-form-props';
-import { InputDefaultState } from '../../interfaces/i-input-default-state';
-import { ILoginFormFormState } from '../../interfaces/i-login-form-state';
-import { login } from '../../services/authentication-service';
+import React, { Component } from "react";
+import EmailInput from "../../components/EmailInput";
+import PasswordInput from "../../components/PasswordInput";
+import { IFormProps } from "../../interfaces/i-form-props";
+import { InputDefaultState } from "../../interfaces/i-input-default-state";
+import { ILoginFormFormState } from "../../interfaces/i-login-form-state";
+import { login } from "../../services/authentication-service";
 
 export default class LoginPage extends Component<
   IFormProps,
@@ -19,7 +19,7 @@ export default class LoginPage extends Component<
     this.emailInput = React.createRef();
 
     this.state = {
-      errorMessage: '',
+      errorMessage: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,7 +31,7 @@ export default class LoginPage extends Component<
   }
 
   private handlePasswordChange(): void {
-    console.log('Handle password change for demo purposes');
+    console.log("Handle password change for demo purposes");
   }
 
   /**
@@ -42,7 +42,7 @@ export default class LoginPage extends Component<
     e.preventDefault();
 
     //Validate input fields
-    this.setState({ errorMessage: '' });
+    this.setState({ errorMessage: "" });
     const emailFieldState:
       | InputDefaultState
       | undefined = this.emailInput.current?.getState();
@@ -57,8 +57,8 @@ export default class LoginPage extends Component<
 
     //Check user access rights
     await login(
-      emailFieldState.value ? emailFieldState.value : '',
-      passwordFieldState.value ? passwordFieldState.value : '',
+      emailFieldState.value ? emailFieldState.value : "",
+      passwordFieldState.value ? passwordFieldState.value : ""
     )
       .then(() => {
         window.location.reload();
@@ -80,7 +80,7 @@ export default class LoginPage extends Component<
 
             <div className="form-group">
               <label>Email address</label>
-              <EmailInput value="demo@demo.lv" ref={this.emailInput} />
+              <EmailInput value="" ref={this.emailInput} />
             </div>
             <div className="form-group">
               <label>Password</label>
@@ -102,7 +102,7 @@ export default class LoginPage extends Component<
                 </label>
               </div>
             </div>
-            <div className="text-danger text-center" style={{ margin: '10px' }}>
+            <div className="text-danger text-center" style={{ margin: "10px" }}>
               {this.state.errorMessage}
             </div>
             <button type="submit" className="btn btn-primary btn-block">
