@@ -1,5 +1,5 @@
 {
-  "name": "React Sandbox",
+  "name": "react-sandbox",
   "version": "0.1.0",
   "private": true,
   "proxy": "https://postman-echo.com/post",
@@ -25,6 +25,10 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
+    "format": "prettier --write \"src/**/*.{ts,js}\" \"test/**/*.{ts,js}\"",
+    "format:check": "prettier --list-different \"src/**/*.{ts,js,json}\" \"test/**/*.{ts,js}\"",
+    "lint": "eslint ./src/**/*.ts",
+    "lint:fix": "tslint -p tsconfig.json --fix",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",

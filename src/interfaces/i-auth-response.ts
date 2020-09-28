@@ -1,4 +1,4 @@
-import { IUser } from './i-user';
+import { IUser } from "./i-user";
 export interface IAuthResponse {
-  data?: IUser
+  data?: IUser;
 }

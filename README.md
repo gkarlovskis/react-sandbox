@@ -1,44 +1,48 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Sandbox (Authentication app)
 
-## Available Scripts
+Authentication app is written in React/TypeScript.
 
-In the project directory, you can run:
+# Project Configuration
 
-### `yarn start`
+## Folder Structure
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The source code is located under **src** folder, meanwhile the tests are under **test**.
+In **src** folder you can find a TypeScript file called `index.tsx` which is entry point of app.
+The **test** folder contains a `jest` test cases.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Configuration
 
-### `yarn test`
+Configuration is handled via Environment variables and stored in Git. The directory "config" contains configuration files for all supported environments where this service will be run.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Configuration parameters
 
-### `yarn build`
+| Paramter          | Description          |
+| ----------------- | -------------------- |
+| AUTH_API_ENDPOINT | Auth server endpoint |
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## How to install and run locally
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+To install related packages:
+`npm install`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To prettify:
+`npm run format`
 
-### `yarn eject`
+To lint:
+`npm run lint`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To run the unittest:
+`npm test`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To build (to transpile .ts files into .js files):
+`npm run build`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To run the app:
+`npm run start`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Testing data
 
-## Learn More
+Username: demo@demo.lv and demo1@demo.lv
+Password: anypassword
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+To test app, please use CORS Plugin in Chrome (https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf).
