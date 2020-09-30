@@ -1,4 +1,4 @@
-import { ReduxActionType } from '../interfaces/enums/redux-action-type';
+import { ReduxActionType } from '../../interfaces/enums/redux-action-type';
 import { TAppAction } from './types/t-action';
 import { TAppState } from './types/t-app-state';
 

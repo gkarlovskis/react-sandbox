@@ -10,9 +10,9 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import reducer, {
   DispatchType,
-} from "./redux-store/reducer";
-import { TAppState } from "./redux-store/types/t-app-state";
-import { TAppAction } from "./redux-store/types/t-action";
+} from "./modules/redux/reducer";
+import { TAppState } from "./modules/redux/types/t-app-state";
+import { TAppAction } from "./modules/redux/types/t-action";
 
 const store: Store<TAppState, TAppAction> & {
   dispatch: DispatchType;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { IDashboardPageProps } from "../../interfaces/props/i-dashboard-page-props";
-import { TAppState } from "../../redux-store/types/t-app-state";
+import { TAppState } from "../../modules/redux/types/t-app-state";
 
 class Dashboard extends Component<IDashboardPageProps> {
   render() {
