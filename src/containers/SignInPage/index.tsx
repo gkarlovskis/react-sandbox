@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 import EmailInput from "../../components/EmailInput";
 import PasswordInput from "../../components/PasswordInput";
-import { IFormDefaultProps } from "../../interfaces/i-form-default-props";
-import { IInputDefaultState } from "../../interfaces/i-input-default-state";
-import { ISignInFormFormState } from "../../interfaces/i-signin-form-state";
+import { IInputDefaultState } from "../../interfaces/states/i-input-default-state";
+import { ISignInFormFormState } from "../../interfaces/states/i-signin-form-state";
 import { login } from "../../services/authentication-service";
 import { ISignInPage } from "../../interfaces/i-signin-page";
+import { connect } from "react-redux";
+import { TAppState } from "../../redux-store/types/t-app-state";
+import { ISignInPageProps } from "../../interfaces/props/i-signin-page-props";
 
-export default class SignInPage
-  extends Component<IFormDefaultProps, ISignInFormFormState>
+class SignInPage
+  extends Component<ISignInPageProps, ISignInFormFormState>
   implements ISignInPage {
   private passwordInput: React.RefObject<PasswordInput>;
   private emailInput: React.RefObject<EmailInput>;
 
-  constructor(props: IFormDefaultProps) {
+  constructor(props: ISignInPageProps) {
     super(props);
     this.passwordInput = React.createRef();
     this.emailInput = React.createRef();
@@ -117,3 +119,11 @@ export default class SignInPage
     );
   }
 }
+
+const mapStateToProps = function (state: TAppState) {
+  return {
+    isLoggedIn: state.isLoggedIn,
+  };
+};
+
+export default connect(mapStateToProps)(SignInPage);

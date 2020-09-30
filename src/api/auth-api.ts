@@ -18,7 +18,7 @@ export class AuthApi extends BaseApi {
     const response = await this.post<IUser, IAuthResponse>(
       "",
       this.baseUrl + this.apiUrlPostfix,
-      { username: username, password_digest: password, authenticated: false },
+      { username: username, password_digest: password },
       "Sends POST request to auth server and get user data"
     );
 
@@ -28,16 +28,14 @@ export class AuthApi extends BaseApi {
         return {
           username: response.data?.username,
           role: "admin",
-          authenticated: true,
         };
       case "demo1@demo.lv":
         return {
           username: response.data?.username,
           role: "user",
-          authenticated: true,
         };
       default:
-        return { username: undefined, role: undefined, authenticated: false };
+        return { username: "", role: "" };
     }
   };
 }

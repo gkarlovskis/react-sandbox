@@ -20,8 +20,7 @@ export const login = async (username: string, password: string) => {
   }
 
   // store user details and jwt token in local storage to keep user logged in between page refreshes
-  user.password_digest = "";
-  user.authenticated = true;
+  user.password_digest = "asdasds1321kljkjklj3123123213jklkx";
   localStorage.setItem("currentUser", JSON.stringify(user));
 
   return user;
@@ -33,10 +32,14 @@ export const logout = async () => {
   return true;
 };
 
-export const isLoggedIn = async () => {
-  const currentUser: IUser = JSON.parse(
-    JSON.stringify(localStorage.getItem("currentUser"))
-  );
-  // TODO: Need to improve validation of user by using token
-  return currentUser ? true : false;
+export const getLoggedUser = async () => {
+  const rawUser = localStorage.getItem("currentUser");
+  if (!rawUser) return null;
+  try {
+    const currentUser: IUser = JSON.parse(rawUser);
+    return currentUser ? currentUser : null;
+  } catch (error) {
+    return null;
+  }
+
 };

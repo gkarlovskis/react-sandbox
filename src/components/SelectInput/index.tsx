@@ -1,7 +1,7 @@
 import * as React from "react";
 import { PersonTitleEnumUtils } from "../../interfaces/enums/person_title";
-import { ISelectDefaultProps } from "../../interfaces/i-select-default-props";
-import { ISelectDefaultState } from "../../interfaces/i-select-default-state";
+import { ISelectDefaultProps } from "../../interfaces/props/i-select-default-props";
+import { ISelectDefaultState } from "../../interfaces/states/i-select-default-state";
 
 export default class SelectInput extends React.Component<
   ISelectDefaultProps,
@@ -18,7 +18,6 @@ export default class SelectInput extends React.Component<
       errorMessage: "errorMessage",
     };
 
-    console.log(this.props.value);
     this.onValueChange = this.onValueChange.bind(this);
     this.getState = this.getState.bind(this);
   }

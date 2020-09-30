@@ -1,17 +1,17 @@
 import React from "react";
 import TextInput from "../../components/TextInput";
-import { IFormDefaultProps } from "../../interfaces/i-form-default-props";
 import { ISignUpPage } from "../../interfaces/i-signup-page";
-import { ISignUpFormState } from "../../interfaces/i-signup-form-state";
-import { IInputDefaultState } from "../../interfaces/i-input-default-state";
+import { ISignUpFormState } from "../../interfaces/states/i-signup-form-state";
+import { IInputDefaultState } from "../../interfaces/states/i-input-default-state";
 import PasswordInput from "../../components/PasswordInput";
 import EmailInput from "../../components/EmailInput";
 import SelectInput from "../../components/SelectInput";
 import { PersonTitle } from "../../interfaces/enums/person_title";
-import { ISelectDefaultState } from "../../interfaces/i-select-default-state";
+import { ISelectDefaultState } from "../../interfaces/states/i-select-default-state";
+import { ISignUpPageProps } from "../../interfaces/states/i-signup-page-props";
 
 export default class SignUpPage
-  extends React.Component<IFormDefaultProps, ISignUpFormState>
+  extends React.Component<ISignUpPageProps, ISignUpFormState>
   implements ISignUpPage {
   private userNameInput: React.RefObject<TextInput> = React.createRef();
   private emailInput: React.RefObject<EmailInput> = React.createRef();
@@ -19,7 +19,7 @@ export default class SignUpPage
   private passwordInput: React.RefObject<PasswordInput> = React.createRef();
   private password2Input: React.RefObject<PasswordInput> = React.createRef();
 
-  constructor(props: IFormDefaultProps) {
+  constructor(props: ISignUpPageProps) {
     super(props);
 
     this.state = {

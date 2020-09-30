@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { IInputDefaultProps } from '../../interfaces/i-input-default-props';
-import { IInputDefaultState } from '../../interfaces/i-input-default-state';
+import { IInputDefaultProps } from '../../interfaces/props/i-input-default-props';
+import { IInputDefaultState } from '../../interfaces/states/i-input-default-state';
 
 export default class PasswordInput extends React.Component<
   IInputDefaultProps,

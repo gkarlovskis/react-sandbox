@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
 import { Router, Switch } from "react-router-dom";
@@ -8,65 +8,71 @@ import SignUpPage from "./containers/SignUpPage";
 import Header from "./components/Header";
 import Dashboard from "./containers/Dashboard";
 import { AppContext } from "./helpers/app-context";
-import { isLoggedIn } from "./services/authentication-service";
+import { getLoggedUser } from "./services/authentication-service";
 import { AuthRoute, HomeRoute, NonAuthRoute } from "./helpers/router";
-export interface IAppProps {}
+import { useDispatch } from "react-redux";
+import { Dispatch } from "redux";
+import { IAppState } from "./interfaces/states/i-app-state";
+import { IUser } from "./interfaces/i-user";
+import { ReduxActionType } from "./interfaces/enums/redux-action-type";
 
-export interface IAppState {
-  isLoggedIn: boolean;
-}
+const App: React.FC = () => {
+  const [appState, setAppState] = useState<IAppState>({ isLoggedIn: false });
 
-class App extends Component<IAppProps, IAppState> {
-  constructor(props: IAppProps) {
-    super(props);
+  const dispatch: Dispatch<any> = useDispatch();
 
-    this.state = {
-      isLoggedIn: false,
-    };
-  }
+  const updateAppState = (user: IUser | null) => {
+    if (user === null || user === undefined) {
+      dispatch({ type: ReduxActionType.LOG_OUT, data: { isLoggedIn: false } });
+      setAppState({ isLoggedIn: false });
+    } else {
+      dispatch({
+        type:
+          user.username !== ""
+            ? ReduxActionType.LOG_IN
+            : ReduxActionType.LOG_OUT,
+        data: { user: user },
+      });
+      setAppState({ isLoggedIn: user.username !== "" ? true : false });
+    }
+  };
 
-  componentDidMount() {
-    isLoggedIn().then((loggedIn) => {
-      if (loggedIn) {
-        this.setState({ isLoggedIn: true });
-      } else {
-        this.setState({ isLoggedIn: false });
-      }
+  useEffect(() => {
+    getLoggedUser().then((user) => {
+      updateAppState(user);
     });
-  }
+  });
 
-  render() {
-    return (
-      <AppContext.Provider value={this.state}>
-        <Router history={history}>
-          <Header />
-          <Switch>
-            <NonAuthRoute
-              isLogged={this.state.isLoggedIn}
-              path={"/sign-in"}
-              component={SignInPage}
-            />
-            <NonAuthRoute
-              isLogged={this.state.isLoggedIn}
-              path={"/sign-up"}
-              component={SignUpPage}
-            />
-            <AuthRoute
-              isAllowed={this.state.isLoggedIn}
-              exact
-              path="/dashboard"
-              component={Dashboard}
-            />
-            <HomeRoute
-              isLogged={this.state.isLoggedIn}
-              path={"/"}
-              component={Dashboard}
-            />
-          </Switch>
-        </Router>
-      </AppContext.Provider>
-    );
-  }
-}
+  return (
+    <AppContext.Provider value={appState}>
+      <Router history={history}>
+        <Header />
+        <Switch>
+          <NonAuthRoute
+            isLogged={appState.isLoggedIn}
+            path={"/sign-in"}
+            component={SignInPage}
+          />
+          <NonAuthRoute
+            isLogged={appState.isLoggedIn}
+            path={"/sign-up"}
+            component={SignUpPage}
+          />
+          <AuthRoute
+            isAllowed={appState.isLoggedIn}
+            exact
+            path="/dashboard"
+            component={Dashboard}
+          />
+          <HomeRoute
+            isLogged={appState.isLoggedIn}
+            path={"/"}
+            component={Dashboard}
+          />
+        </Switch>
+      </Router>
+    </AppContext.Provider>
+  );
+};
 
 export default App;
