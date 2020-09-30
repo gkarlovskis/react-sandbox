@@ -6,7 +6,7 @@ import { ISignInFormFormState } from "../../interfaces/states/i-signin-form-stat
 import { login } from "../../services/authentication-service";
 import { ISignInPage } from "../../interfaces/i-signin-page";
 import { connect } from "react-redux";
-import { TAppState } from "../../modules/redux/types/t-app-state";
+import { TAppState } from "../../interfaces/types/t-app-state";
 import { ISignInPageProps } from "../../interfaces/props/i-signin-page-props";
 
 class SignInPage

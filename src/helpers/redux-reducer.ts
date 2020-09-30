@@ -1,6 +1,6 @@
-import { ReduxActionType } from '../../interfaces/enums/redux-action-type';
-import { TAppAction } from './types/t-action';
-import { TAppState } from './types/t-app-state';
+import { ReduxActionType } from '../interfaces/enums/redux-action-type';
+import { TAppAction } from '../interfaces/types/t-action';
+import { TAppState } from '../interfaces/types/t-app-state';
 
 export type DispatchType = (args: TAppAction) => TAppAction;
 

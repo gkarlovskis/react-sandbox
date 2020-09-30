@@ -1,4 +1,4 @@
-import { IUser } from "../../../interfaces/i-user";
+import { IUser } from "../i-user";
 
 export type TAppState = {
     isLoggedIn: boolean;
