@@ -38,14 +38,13 @@ const Header = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light ">
+    <nav className="navbar navbar-expand-lg navbar-light">
       <div className="container">
         <Link className="navbar-brand" to={"/dashboard"}>
           {ctx.isLoggedIn ? "Dashboard" : "React Sandbox"}
         </Link>
-        <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul className="navbar-nav ml-auto">{buttonsList()}</ul>
-        </div>
+
+        <ul className="navbar-nav ml-auto">{buttonsList()}</ul>
       </div>
     </nav>
   );
