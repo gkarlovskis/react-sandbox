@@ -1,4 +1,5 @@
 
-export interface ISignInFormFormState  {
+export interface ISignInFormFormState {
   errorMessage?: string;
+  showForgotPasswordModal?: boolean;
 }
