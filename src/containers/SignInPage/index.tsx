@@ -16,15 +16,11 @@ class SignInPage
   implements ISignInPage {
   private passwordInput: React.RefObject<PasswordInput>;
   private emailInput: React.RefObject<EmailInput>;
-  private modal: React.RefObject<any>;
-  private closeButton: React.RefObject<HTMLButtonElement>;
 
   constructor(props: ISignInPageProps) {
     super(props);
     this.passwordInput = React.createRef();
     this.emailInput = React.createRef();
-    this.modal = React.createRef();
-    this.closeButton = React.createRef();
 
     this.state = {
       errorMessage: "",
@@ -38,7 +34,6 @@ class SignInPage
 
   onForgotPasswordClicked(e: any): void {
     e.preventDefault();
-    console.log("OnForgotPasswordClicked");
     this.setState({ showForgotPasswordModal: true });
   }
 
@@ -52,28 +47,13 @@ class SignInPage
 
   closeModal = () => {
     this.setState({ showForgotPasswordModal: false });
-    this.toggleScrollLock();
   };
 
-  onKeyDown = () => {
-    console.log("onKeyDownClicked");
-    // if (event.keyCode === 27) {
-    //   this.closeModal();
-    // }
+  onForgotPasswordSubmit = (e: any) => {
+    e.preventDefault();
+    alert("Thank you! We will send you confirmation email shortly.");
+    this.setState({ showForgotPasswordModal: false });
   };
-
-  onClickOutside = () => {
-    console.log("onClickOutside");
-    // if (this.modal && this.modal.contains(event.target)) return;
-    // this.closeModal();
-  };
-
-  toggleScrollLock = () => {
-    console.log("onClickOutside");
-    //document.querySelector("html").classList.toggle("scroll-lock");
-  };
-
-  onForgotPasswordSubmit = () => {};
 
   /**
    * Submits the form to the http api
@@ -115,70 +95,66 @@ class SignInPage
   render() {
     return (
       <React.Fragment>
-        <div className="auth-wrapper">
-          <div className="auth-inner">
-            <form onSubmit={this.handleSubmit} noValidate={true}>
-              <h3>Sign In</h3>
+        <div className="container text-center">
+          <div className="row ">
+            <div className="auth-wrapper">
+              <div className="auth-inner">
+                <form onSubmit={this.handleSubmit} noValidate={true}>
+                  <h3>Sign In</h3>
 
-              <div className="form-group">
-                <label>Email address</label>
-                <EmailInput value="" ref={this.emailInput} />
-              </div>
-              <div className="form-group">
-                <label>Password</label>
-                <PasswordInput
-                  value=""
-                  ref={this.passwordInput}
-                  onChange={this.handlePasswordChange}
-                />
-              </div>
-              <div className="form-group">
-                <div className="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    id="customCheck1"
-                  />
-                  <label
-                    className="custom-control-label"
-                    htmlFor="customCheck1"
+                  <div className="form-group">
+                    <label>Email address</label>
+                    <EmailInput value="" ref={this.emailInput} />
+                  </div>
+                  <div className="form-group">
+                    <label>Password</label>
+                    <PasswordInput
+                      value=""
+                      ref={this.passwordInput}
+                      onChange={this.handlePasswordChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <div className="custom-control custom-checkbox">
+                      <input
+                        type="checkbox"
+                        className="custom-control-input"
+                        id="customCheck1"
+                      />
+                      <label
+                        className="custom-control-label"
+                        htmlFor="customCheck1"
+                      >
+                        Remember me
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    className="text-danger text-center"
+                    style={{ margin: "10px" }}
                   >
-                    Remember me
-                  </label>
-                </div>
+                    {this.state.errorMessage}
+                  </div>
+                  <button type="submit" className="btn btn-primary btn-block">
+                    Submit
+                  </button>
+                  <p className="forgot-password text-right">
+                    Forgot{" "}
+                    <Link to="" onClick={this.onForgotPasswordClicked}>
+                      password?
+                    </Link>
+                  </p>
+                </form>
               </div>
-              <div
-                className="text-danger text-center"
-                style={{ margin: "10px" }}
-              >
-                {this.state.errorMessage}
-              </div>
-              <button type="submit" className="btn btn-primary btn-block">
-                Submit
-              </button>
-              <p className="forgot-password text-right">
-                Forgot{" "}
-                <Link to="" onClick={this.onForgotPasswordClicked}>
-                  password?
-                </Link>
-              </p>
-            </form>
+            </div>
           </div>
         </div>
         {this.state.showForgotPasswordModal ? (
           <ForgotPasswordModalForm
             onSubmit={this.onForgotPasswordSubmit}
-            modalRef={(n: React.RefObject<any>) => (this.modal = n)}
-            buttonRef={(n: React.RefObject<HTMLButtonElement>) =>
-              (this.closeButton = n)
-            }
             closeModal={this.closeModal}
-            onKeyDown={this.onKeyDown}
-            onClickOutside={this.onClickOutside}
           />
-        ) : (
-          "asdadasdasdsa"
-        )}
+        ) : null}
       </React.Fragment>
     );
   }

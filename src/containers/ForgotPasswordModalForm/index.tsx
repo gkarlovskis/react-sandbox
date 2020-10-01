@@ -4,27 +4,19 @@ import FocusTrap from "focus-trap-react";
 import { IForgotPasswordModalFormProps } from "../../interfaces/props/i-forgot-password-modal-form-props";
 
 export const ForgotPasswordModalForm = ({
-  onClickOutside,
-  onKeyDown,
-  modalRef,
-  buttonRef,
   closeModal,
   onSubmit,
 }: IForgotPasswordModalFormProps) => {
-  console.log("Call modal form");
   return ReactDOM.createPortal(
     <FocusTrap>
       <aside
         role="dialog"
-        tabIndex={-1}
+        tabIndex={-200}
         aria-modal="true"
         className="modal-cover"
-        onClick={onClickOutside}
-        onKeyDown={onKeyDown}
       >
-        <div className="modal-area" ref={modalRef}>
+        <div className="modal-area">
           <button
-            ref={buttonRef}
             aria-label="Close Modal"
             aria-labelledby="close-modal"
             className="_modal-close"
@@ -38,13 +30,12 @@ export const ForgotPasswordModalForm = ({
             </svg>
           </button>
           <div className="modal-body">
+            <h5>Forgot password</h5>
             <form onSubmit={onSubmit}>
               <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input className="form-control" id="name" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Email address</label>
+                <label htmlFor="email">
+                  Please enter your email address here
+                </label>
                 <input
                   type="email"
                   className="form-control"

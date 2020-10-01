@@ -4,5 +4,5 @@ export interface ISignInPage {
   errorHandler(error: Error): void;
   onForgotPasswordClicked(e: any): void;
   closeModal: () => void;
-  onForgotPasswordSubmit: () => void;
+  onForgotPasswordSubmit(e: any): void;
 }

@@ -77,58 +77,63 @@ export default class SignUpPage
 
   render() {
     return (
-      <div className="auth-wrapper">
-        <div className="auth-inner">
-          <form onSubmit={this.handleSubmit} noValidate={true}>
-            <h3>Sign Up</h3>
+      <div className="container text-center">
+        <div className="auth-wrapper">
+          <div className="auth-inner">
+            <form onSubmit={this.handleSubmit} noValidate={true}>
+              <h3>Sign Up</h3>
 
-            <div className="form-group">
-              <label>Your name</label>
-              <small className="text-danger">*</small>
-              <TextInput
-                value=""
-                required={true}
-                placeholder="Enter your name"
-                ref={this.userNameInput}
-              />
-            </div>
+              <div className="form-group">
+                <label>Your name</label>
+                <small className="text-danger">*</small>
+                <TextInput
+                  value=""
+                  required={true}
+                  placeholder="Enter your name"
+                  ref={this.userNameInput}
+                />
+              </div>
 
-            <div className="form-group">
-              <label>Title</label>
-              <small className="text-danger">*</small>
-              <SelectInput
-                required={true}
-                value={PersonTitle.DR}
-                ref={this.titleSelect}
-              />
-            </div>
+              <div className="form-group">
+                <label>Title</label>
+                <small className="text-danger">*</small>
+                <SelectInput
+                  required={true}
+                  value={PersonTitle.DR}
+                  ref={this.titleSelect}
+                />
+              </div>
 
-            <div className="form-group">
-              <label>Email address</label>
-              <small className="text-danger">*</small>
-              <EmailInput value="" ref={this.emailInput} />
-            </div>
+              <div className="form-group">
+                <label>Email address</label>
+                <small className="text-danger">*</small>
+                <EmailInput value="" ref={this.emailInput} />
+              </div>
 
-            <div className="form-group">
-              <label>Password</label>
-              <small className="text-danger">*</small>
-              <PasswordInput value="" ref={this.passwordInput} />
-            </div>
-            <div className="form-group">
-              <label>Confirm Password</label>
-              <small className="text-danger">*</small>
-              <PasswordInput value="" ref={this.password2Input} />
-            </div>
-            <div className="text-danger text-center" style={{ margin: "10px" }}>
-              {this.state.errorMessage}
-            </div>
-            <button type="submit" className="btn btn-primary btn-block">
-              Sign Up
-            </button>
-            <p className="forgot-password text-right">
-              Already registered <a href="/sign-in">sign in?</a>
-            </p>
-          </form>
+              <div className="form-group">
+                <label>Password</label>
+                <small className="text-danger">*</small>
+                <PasswordInput value="" ref={this.passwordInput} />
+              </div>
+              <div className="form-group">
+                <label>Confirm Password</label>
+                <small className="text-danger">*</small>
+                <PasswordInput value="" ref={this.password2Input} />
+              </div>
+              <div
+                className="text-danger text-center"
+                style={{ margin: "10px" }}
+              >
+                {this.state.errorMessage}
+              </div>
+              <button type="submit" className="btn btn-primary btn-block">
+                Sign Up
+              </button>
+              <p className="forgot-password text-right">
+                Already registered <a href="/sign-in">sign in?</a>
+              </p>
+            </form>
+          </div>
         </div>
       </div>
     );
