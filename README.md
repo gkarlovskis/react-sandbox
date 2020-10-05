@@ -1,3 +1,5 @@
+![Alt text](https://raw.githubusercontent.com/gkarlovskis/react-sandbox/master/src/assets/preview.png)
+
 # React Sandbox (Authentication app)
 
 Authentication app is written in React/TypeScript.
