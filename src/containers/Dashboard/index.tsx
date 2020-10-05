@@ -12,7 +12,7 @@ class Dashboard extends Component<IDashboardPageProps> {
       >
         <h1>Dashboard Page</h1>
         <p>
-          Hi, {this.props.user.username}. Your role is {this.props.user.role}
+          Hi, {this.props.user?.username}. Your role is {this.props.user?.role}
         </p>
       </div>
     );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+// import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
 import { Router, Switch } from "react-router-dom";
 import history from "./helpers/browser-history";
@@ -27,17 +27,14 @@ const App: React.FC = () => {
       setAppState({ isLoggedIn: false });
     } else {
       dispatch({
-        type:
-          user.username !== ""
-            ? ReduxActionType.LOG_IN
-            : ReduxActionType.LOG_OUT,
+        type: user.username !== "" ? ReduxActionType.LOG_IN : ReduxActionType.LOG_OUT,
         data: { user: user },
       });
       setAppState({ isLoggedIn: user.username !== "" ? true : false });
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     getLoggedUser().then((user) => {
       updateAppState(user);
     });
@@ -48,27 +45,10 @@ const App: React.FC = () => {
       <Router history={history}>
         <Header />
         <Switch>
-          <NonAuthRoute
-            isLogged={appState.isLoggedIn}
-            path={"/sign-in"}
-            component={SignInPage}
-          />
-          <NonAuthRoute
-            isLogged={appState.isLoggedIn}
-            path={"/sign-up"}
-            component={SignUpPage}
-          />
-          <AuthRoute
-            isAllowed={appState.isLoggedIn}
-            exact
-            path="/dashboard"
-            component={Dashboard}
-          />
-          <HomeRoute
-            isLogged={appState.isLoggedIn}
-            path={"/"}
-            component={Dashboard}
-          />
+          <NonAuthRoute isLogged={appState.isLoggedIn} path={"/sign-in"} component={SignInPage} />
+          <NonAuthRoute isLogged={appState.isLoggedIn} path={"/sign-up"} component={SignUpPage} />
+          <AuthRoute isAllowed={appState.isLoggedIn} exact path="/dashboard" component={Dashboard} />
+          <HomeRoute isLogged={appState.isLoggedIn} path={"/"} component={Dashboard} />
         </Switch>
       </Router>
     </AppContext.Provider>

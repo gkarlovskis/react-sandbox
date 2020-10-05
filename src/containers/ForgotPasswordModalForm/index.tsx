@@ -3,20 +3,13 @@ import ReactDOM from "react-dom";
 import FocusTrap from "focus-trap-react";
 import { IForgotPasswordModalFormProps } from "../../interfaces/props/i-forgot-password-modal-form-props";
 
-export const ForgotPasswordModalForm = ({
-  closeModal,
-  onSubmit,
-}: IForgotPasswordModalFormProps) => {
+export const ForgotPasswordModalForm = ({ closeModal, onSubmit }: IForgotPasswordModalFormProps) => {
   return ReactDOM.createPortal(
     <FocusTrap>
-      <aside
-        role="dialog"
-        tabIndex={-200}
-        aria-modal="true"
-        className="modal-cover"
-      >
+      <aside role="dialog" tabIndex={-200} aria-modal="true" className="modal-cover">
         <div className="modal-area">
           <button
+            id="modal-form-close"
             aria-label="Close Modal"
             aria-labelledby="close-modal"
             className="_modal-close"
@@ -31,20 +24,13 @@ export const ForgotPasswordModalForm = ({
           </button>
           <div className="modal-body">
             <h5>Forgot password</h5>
-            <form onSubmit={onSubmit}>
+            <form id="modal-view-form" onSubmit={onSubmit}>
               <div className="form-group">
-                <label htmlFor="email">
-                  Please enter your email address here
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  placeholder="name@example.com"
-                />
+                <label htmlFor="email">Please enter your email address here</label>
+                <input type="email" className="form-control" id="email" placeholder="name@example.com" />
               </div>
               <div className="form-group">
-                <button className="form-control btn btn-primary" type="submit">
+                <button id="modal-form-submit-btn" className="form-control btn btn-primary" type="submit">
                   Submit
                 </button>
               </div>

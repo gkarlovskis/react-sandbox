@@ -2,31 +2,30 @@
  * @file Jest configuration.
  */
 module.exports = {
-  rootDir: './test',
+  setupFiles: ["<rootDir>/test/setup.ts"],
+  moduleFileExtensions: ["ts", "js", "jsx", "tsx"],
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    "^.+\\.tsx?$": "ts-jest",
+    "^.+\\.ts?$": "ts-jest",
   },
-  preset: 'ts-jest',
-  // testRegex: '/src/test/.*test\\.js$',
-  setupFiles: ['<rootDir>/setup.ts'],
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.{js,jsx,ts}'],
+  coverageDirectory: "coverage",
   coveragePathIgnorePatterns: [
-    '/node_modules',
-    'coverage',
-    '.vscode',
-    '/ui-client',
-    'index.local.js',
-    'gulpfile.js',
-    'webpack.config.js',
-    'wallaby.js',
+    "/node_modules",
+    "coverage",
+    ".vscode",
+    "index.local.js",
+    "gulpfile.js",
+    "webpack.config.js",
+    "wallaby.js",
   ],
   coverageThreshold: {
     global: {
-      branches: 85,
-      functions: 85,
-      lines: 85,
+      branches: 80,
+      functions: 80,
+      lines: 80,
       statements: -10,
     },
   },
+  moduleDirectories: ["node_modules", "src"],
 };

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { Component } from "react";
 import EmailInput from "../../components/EmailInput";
 import PasswordInput from "../../components/PasswordInput";
@@ -11,9 +13,7 @@ import { ISignInPageProps } from "../../interfaces/props/i-signin-page-props";
 import { Link } from "react-router-dom";
 import ForgotPasswordModalForm from "../ForgotPasswordModalForm";
 
-class SignInPage
-  extends Component<ISignInPageProps, ISignInFormFormState>
-  implements ISignInPage {
+class SignInPage extends Component<ISignInPageProps, ISignInFormFormState> implements ISignInPage {
   private passwordInput: React.RefObject<PasswordInput>;
   private emailInput: React.RefObject<EmailInput>;
 
@@ -24,12 +24,14 @@ class SignInPage
 
     this.state = {
       errorMessage: "",
+      isSubmitted: false,
       showForgotPasswordModal: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.errorHandler = this.errorHandler.bind(this);
     this.onForgotPasswordClicked = this.onForgotPasswordClicked.bind(this);
+    this.reloadWin = this.reloadWin.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
   onForgotPasswordClicked(e: any): void {
@@ -37,12 +39,9 @@ class SignInPage
     this.setState({ showForgotPasswordModal: true });
   }
 
-  errorHandler(error: Error): void {
-    this.setState(() => ({ errorMessage: error.message }));
-  }
-
-  handlePasswordChange(): void {
+  handlePasswordChange(): string {
     console.log("Handle password change for demo purposes");
+    return "handlePasswordChange";
   }
 
   closeModal = () => {
@@ -51,9 +50,12 @@ class SignInPage
 
   onForgotPasswordSubmit = (e: any) => {
     e.preventDefault();
-    alert("Thank you! We will send you confirmation email shortly.");
     this.setState({ showForgotPasswordModal: false });
   };
+
+  private reloadWin(): void {
+    window.location.reload();
+  }
 
   /**
    * Submits the form to the http api
@@ -61,34 +63,32 @@ class SignInPage
    */
   async handleSubmit(e: any): Promise<boolean> {
     e.preventDefault();
-
     //Validate input fields
-    this.setState({ errorMessage: "" });
-    const emailFieldState:
-      | IInputDefaultState
-      | undefined = this.emailInput.current?.getState();
-
-    const passwordFieldState:
-      | IInputDefaultState
-      | undefined = this.passwordInput.current?.getState();
+    this.setState({ errorMessage: "", isSubmitted: false });
+    const emailFieldState: IInputDefaultState | undefined = this.emailInput.current?.getState();
+    const passwordFieldState: IInputDefaultState | undefined = this.passwordInput.current?.getState();
 
     if (!emailFieldState?.isValid || !passwordFieldState?.isValid) {
       return false;
     }
 
     //Check user access rights
-    await login(
-      emailFieldState.value ? emailFieldState.value : "",
-      passwordFieldState.value ? passwordFieldState.value : ""
-    )
-      .then(() => {
-        window.location.reload();
+    await login(emailFieldState.value ? emailFieldState.value : "", passwordFieldState.value ? passwordFieldState.value : "")
+      .then((res) => {
+        if (res) {
+          this.setState({ isSubmitted: true });
+          this.reloadWin();
+        } else {
+          this.setState({ isSubmitted: false });
+        }
+        return false;
       })
       .catch((error) => {
-        this.errorHandler(error);
+        this.setState({ errorMessage: error.message, isSubmitted: false });
         return false;
       });
 
+    this.setState({ isSubmitted: true });
     return true;
   }
 
@@ -108,31 +108,17 @@ class SignInPage
                   </div>
                   <div className="form-group">
                     <label>Password</label>
-                    <PasswordInput
-                      value=""
-                      ref={this.passwordInput}
-                      onChange={this.handlePasswordChange}
-                    />
+                    <PasswordInput value="" ref={this.passwordInput} onChange={this.handlePasswordChange} />
                   </div>
                   <div className="form-group">
                     <div className="custom-control custom-checkbox">
-                      <input
-                        type="checkbox"
-                        className="custom-control-input"
-                        id="customCheck1"
-                      />
-                      <label
-                        className="custom-control-label"
-                        htmlFor="customCheck1"
-                      >
+                      <input type="checkbox" className="custom-control-input" id="customCheck1" />
+                      <label className="custom-control-label" htmlFor="customCheck1">
                         Remember me
                       </label>
                     </div>
                   </div>
-                  <div
-                    className="text-danger text-center"
-                    style={{ margin: "10px" }}
-                  >
+                  <div className="text-danger text-center" style={{ margin: "10px" }}>
                     {this.state.errorMessage}
                   </div>
                   <button type="submit" className="btn btn-primary btn-block">
@@ -140,7 +126,7 @@ class SignInPage
                   </button>
                   <p className="forgot-password text-right">
                     Forgot{" "}
-                    <Link to="" onClick={this.onForgotPasswordClicked}>
+                    <Link to="" id="forgot-password" onClick={this.onForgotPasswordClicked}>
                       password?
                     </Link>
                   </p>
@@ -150,10 +136,7 @@ class SignInPage
           </div>
         </div>
         {this.state.showForgotPasswordModal ? (
-          <ForgotPasswordModalForm
-            onSubmit={this.onForgotPasswordSubmit}
-            closeModal={this.closeModal}
-          />
+          <ForgotPasswordModalForm onSubmit={this.onForgotPasswordSubmit} closeModal={this.closeModal} />
         ) : null}
       </React.Fragment>
     );

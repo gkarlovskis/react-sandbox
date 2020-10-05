@@ -24,7 +24,7 @@ export abstract class BaseApi {
       .get<T>(url, this.config(token))
       .then((response) => response.data)
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       })) as T;
   };
 
@@ -54,7 +54,8 @@ export abstract class BaseApi {
       .patch<TRes>(url, data, this.config(token))
       .then((response) => response.data)
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
+        throw new Error(error);
       })) as TRes;
   };
 }

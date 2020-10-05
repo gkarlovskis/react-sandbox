@@ -19,13 +19,13 @@ const reducer = (
       return {
         ...state,
         isLoggedIn: true,
-        user: action.data.user
+        user: action.data.user ? action.data.user : { username: "" }
       };
     case ReduxActionType.LOG_OUT:
       return {
         ...state,
         isLoggedIn: false,
-        user: action.data.user
+        user: action.data.user ? action.data.user : { username: "" }
       };
   }
   return state;

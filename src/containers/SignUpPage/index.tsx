@@ -10,9 +10,7 @@ import { PersonTitle } from "../../interfaces/enums/person_title";
 import { ISelectDefaultState } from "../../interfaces/states/i-select-default-state";
 import { ISignUpPageProps } from "../../interfaces/states/i-signup-page-props";
 
-export default class SignUpPage
-  extends React.Component<ISignUpPageProps, ISignUpFormState>
-  implements ISignUpPage {
+export default class SignUpPage extends React.Component<ISignUpPageProps, ISignUpFormState> implements ISignUpPage {
   private userNameInput: React.RefObject<TextInput> = React.createRef();
   private emailInput: React.RefObject<EmailInput> = React.createRef();
   private titleSelect: React.RefObject<SelectInput> = React.createRef();
@@ -24,36 +22,22 @@ export default class SignUpPage
 
     this.state = {
       errorMessage: "",
+      isSubmitted: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.errorHandler = this.errorHandler.bind(this);
-  }
-
-  errorHandler(error: Error): void {
-    this.setState(() => ({ errorMessage: error.message }));
   }
 
   async handleSubmit(e: any): Promise<boolean> {
     e.preventDefault();
 
     //Validate input fields
-    this.setState({ errorMessage: "" });
-    const firstNameState:
-      | IInputDefaultState
-      | undefined = this.userNameInput.current?.getState();
-    const titleSelectState:
-      | ISelectDefaultState
-      | undefined = this.titleSelect.current?.getState();
-    const emailFieldState:
-      | IInputDefaultState
-      | undefined = this.emailInput.current?.getState();
-    const passwordFieldState:
-      | IInputDefaultState
-      | undefined = this.passwordInput.current?.getState();
-    const passwordField2State:
-      | IInputDefaultState
-      | undefined = this.password2Input.current?.getState();
+    this.setState({ errorMessage: "", isSubmitted: false });
+    const firstNameState: IInputDefaultState | undefined = this.userNameInput.current?.getState();
+    const titleSelectState: ISelectDefaultState | undefined = this.titleSelect.current?.getState();
+    const emailFieldState: IInputDefaultState | undefined = this.emailInput.current?.getState();
+    const passwordFieldState: IInputDefaultState | undefined = this.passwordInput.current?.getState();
+    const passwordField2State: IInputDefaultState | undefined = this.password2Input.current?.getState();
 
     if (
       !firstNameState?.isValid ||
@@ -62,16 +46,18 @@ export default class SignUpPage
       !passwordFieldState?.isValid ||
       !passwordField2State?.isValid
     ) {
+      this.setState({ errorMessage: "", isSubmitted: false });
       return false;
     }
 
     if (passwordField2State.value !== passwordFieldState.value) {
       this.setState(() => ({
         errorMessage: "The password confirmation does not match",
+        isSubmitted: false,
       }));
       return false;
     }
-
+    this.setState({ errorMessage: "", isSubmitted: true });
     return true;
   }
 
@@ -86,22 +72,13 @@ export default class SignUpPage
               <div className="form-group">
                 <label>Your name</label>
                 <small className="text-danger">*</small>
-                <TextInput
-                  value=""
-                  required={true}
-                  placeholder="Enter your name"
-                  ref={this.userNameInput}
-                />
+                <TextInput value="" required={true} placeholder="Enter your name" ref={this.userNameInput} />
               </div>
 
               <div className="form-group">
                 <label>Title</label>
                 <small className="text-danger">*</small>
-                <SelectInput
-                  required={true}
-                  value={PersonTitle.DR}
-                  ref={this.titleSelect}
-                />
+                <SelectInput required={true} value={PersonTitle.DR} ref={this.titleSelect} />
               </div>
 
               <div className="form-group">
@@ -120,10 +97,7 @@ export default class SignUpPage
                 <small className="text-danger">*</small>
                 <PasswordInput value="" ref={this.password2Input} />
               </div>
-              <div
-                className="text-danger text-center"
-                style={{ margin: "10px" }}
-              >
+              <div className="text-danger text-center" style={{ margin: "10px" }}>
                 {this.state.errorMessage}
               </div>
               <button type="submit" className="btn btn-primary btn-block">

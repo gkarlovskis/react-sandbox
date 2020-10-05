@@ -3,10 +3,7 @@ import { PersonTitleEnumUtils } from "../../interfaces/enums/person_title";
 import { ISelectDefaultProps } from "../../interfaces/props/i-select-default-props";
 import { ISelectDefaultState } from "../../interfaces/states/i-select-default-state";
 
-export default class SelectInput extends React.Component<
-  ISelectDefaultProps,
-  ISelectDefaultState
-> {
+export default class SelectInput extends React.Component<ISelectDefaultProps, ISelectDefaultState> {
   constructor(props: ISelectDefaultProps) {
     super(props);
 
@@ -23,7 +20,7 @@ export default class SelectInput extends React.Component<
   }
 
   public getState(): ISelectDefaultState {
-    let result = { ...this.state };
+    const result = { ...this.state };
     result["errorMessage"] = "";
     result["isValid"] = true;
     this.setState(result);
@@ -47,7 +44,6 @@ export default class SelectInput extends React.Component<
   }
 
   private validate(val: string | undefined): string {
-    console.log("Validate = " + val);
     if (!val || (val === "DEFAULT" && this.props.required)) {
       return "This is required field";
     }
@@ -66,12 +62,7 @@ export default class SelectInput extends React.Component<
   render() {
     return (
       <div>
-        <select
-          className="form-control"
-          id={this.props.name}
-          onChange={this.onValueChange}
-          value={this.state.value}
-        >
+        <select className="form-control" id={this.props.name} onChange={this.onValueChange} value={this.state.value}>
           <option key={-1} value={""}></option>
           {this.state.options?.map((val, idx) => (
             <option key={this.state.keys[idx]} value={this.state.keys[idx]}>
@@ -80,12 +71,7 @@ export default class SelectInput extends React.Component<
           ))}
         </select>
 
-        <small
-          className="text-danger"
-          style={
-            !this.state.isValid ? { display: "block" } : { display: "none" }
-          }
-        >
+        <small className="text-danger" style={!this.state.isValid ? { display: "block" } : { display: "none" }}>
           {this.state.errorMessage}
         </small>
       </div>

@@ -1,5 +1,5 @@
 export interface IUser {
   username: string;
-  password_digest?: string;
+  passwordDigest?: string;
   role?: string;
 }

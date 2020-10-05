@@ -2,10 +2,7 @@ import * as React from "react";
 import { IInputDefaultProps } from "../../interfaces/props/i-input-default-props";
 import { IInputDefaultState } from "../../interfaces/states/i-input-default-state";
 
-export default class TextInput extends React.Component<
-  IInputDefaultProps,
-  IInputDefaultState
-> {
+export default class TextInput extends React.Component<IInputDefaultProps, IInputDefaultState> {
   constructor(props: IInputDefaultProps) {
     super(props);
 
@@ -19,7 +16,7 @@ export default class TextInput extends React.Component<
   }
 
   public getState(): IInputDefaultState {
-    let result = { ...this.state };
+    const result = { ...this.state };
     result["errorMessage"] = "";
     result["isValid"] = true;
     this.setState(result);
@@ -42,13 +39,21 @@ export default class TextInput extends React.Component<
     }
   }
 
-  private validateInput(val: string | undefined): string {
+  // private validateInput(val: string | undefined): string {
+  //   if (!val && this.props.required) {
+  //     return "This is required field";
+  //   }
+
+  //   return "";
+  // }
+
+  validateInput = (val: string | undefined): string => {
     if (!val && this.props.required) {
       return "This is required field";
     }
 
     return "";
-  }
+  };
 
   render() {
     return (
@@ -57,21 +62,14 @@ export default class TextInput extends React.Component<
           type="email"
           value={this.state.value}
           className="form-control"
-          placeholder={
-            this.props.placeholder ? this.props.placeholder : "Enter text"
-          }
+          placeholder={this.props.placeholder ? this.props.placeholder : "Enter text"}
           minLength={this.props.minlength}
           maxLength={this.props.maxlength}
           autoComplete="off"
           style={!this.state.isValid ? { border: "1px solid red" } : {}}
           onChange={this.onInputChange}
         />
-        <small
-          className="text-danger"
-          style={
-            !this.state.isValid ? { display: "block" } : { display: "none" }
-          }
-        >
+        <small className="text-danger" style={!this.state.isValid ? { display: "block" } : { display: "none" }}>
           {this.state.errorMessage}
         </small>
       </div>
