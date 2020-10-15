@@ -10,7 +10,7 @@ Authentication app is written in React/TypeScript.
 
 The source code is located under **src** folder, meanwhile the tests are under **test**.
 In **src** folder you can find a TypeScript file called `index.tsx` which is entry point of app.
-The **test** folder contains a `jest` test cases.
+The **test** folder contains a `jest` test cases..
 
 ## Configuration
 
